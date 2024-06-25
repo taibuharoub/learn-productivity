@@ -1,0 +1,5 @@
+{
+  "name": "@tia/true-date",
+  "version": "0.1.2",
+  "exports": "./index.ts"
+}
