@@ -148,3 +148,34 @@ The `Flexbox` algorithm refuses to shrink a child below its `minimum size`. The 
 Here's the good news: We can redefine the minimum size with the min-width property. By setting `min-width: 0px` directly on the Flex child, we tell the `Flexbox` algorithm to overwrite the “built-in” `minimum width`. Because we've set it to `0px`, the element can shrink as much as necessary.
 
 This same trick can work in `Flex columns` with the `min-height` property (although the problem doesn't seem to come up as often).
+
+## Gaps
+
+One of the biggest Flexbox quality-of-life improvements in recent years has been the `gap` property. `gap` allows us to create space in-between each Flex child. This is great for things like navigation headers
+
+### Auto margins
+
+There's one other spacing-related trick I want to share. It's been around since the early days of Flexbox, but it's relatively obscure, and it blew my mind when I first discovered it.
+
+The margin property is used to add space around a specific element. In some layout modes, like Flow and Positioned, it can even be used to center an element, with margin: auto.
+
+Auto margins are much more interesting in Flexbox. Auto margins will gobble up the extra space, and apply it to the element's margin. It gives us precise control over where to distribute the extra space.
+
+## Wrapping
+
+So far, all of our items have sat side-by-side, in a single row/column. The `flex-wrap` property allows us to change that. Most of the time when we work in two dimensions, we'll want to use CSS Grid, but `Flexbox + flex-wrap` definitely has its uses!
+
+Tip:
+
+- When we set `flex-wrap: wrap`, items won't shrink below their hypothetical size. At least, not when wrapping onto the next row/column is an option!
+
+But wait! What about our kebab / cocktail weenie metaphor??
+
+With `flex-wrap: wrap`, we no longer have a single primary axis line that can skewer each item. Effectively, each row acts as its own mini flex container. Instead of 1 big skewer, each row gets its own skewer:
+
+To summarize what's happening here:
+
+- flex-wrap: wrap gives us two rows of stuff.
+- Within each row, align-items lets us slide each individual child up or down
+- Zooming out, however, we have these two rows within a single Flex context! The cross axis will now intersect two rows, not one. And so, we can't move the rows individually, we need to distribute them as a group.
+- Using our definitions from above, we're dealing with content, not items. But we're also still talking about the cross axis! And so the property we want is align-content.
