@@ -1,0 +1,15 @@
+.main {
+  display: flex;
+  height: 100vh;
+  flex-direction: row;
+  /* justify-content: space-between; */
+  /* align-items: center; */
+  align-content: center;
+}
+
+.sub {
+  height: 100px;
+  width: 600px;
+  color: red;
+  background-color: black;
+}

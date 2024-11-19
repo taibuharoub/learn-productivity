@@ -1,0 +1,11 @@
+.row {
+  list-style-type: none;
+  padding: 16px;
+}
+.item {
+  height: 50px;
+  border: 2px solid;
+  border-radius: 4px;
+  background: hotpink;
+  margin: 16px;
+}
