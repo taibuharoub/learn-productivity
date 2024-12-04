@@ -109,3 +109,41 @@ Focus styles are primarily useful for folks who don't use a "pointer-style" inpu
 
 The `:checked` pseudo-class only applies to checkboxes and radio buttons that are "filled in". You can apply additional styles to indicate that the input is `activated:`
 
+## 5. Pseudo-elements
+
+`Pseudo-elements` are **like pseudo-classes, but they don't target a specific state. Instead, they target "sub-elements" within an element**. For example, we can style the placeholder text in a form input with `::placeholder`
+
+In terms of syntax, `pseudo-elements` use two colons instead of one `(::)`, though some pseudo-elements also support single-colon syntax.
+
+Tip:
+
+- This is why they're called `pseudo-elements` — these selectors target elements in the DOM that we haven't explicitly created with HTML tags
+
+### 1. before and after
+
+Two of the most common pseudo-elements are `::before` and `::after`. These pseudo-elements are added inside the element, right before and after the element's content.
+
+We could rewrite the example see `./03-pseudo-elements/01-before-and-after.html` example like so
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        .pseudo-pseudo {
+        color: deeppink;
+        }
+    </style>
+  </head>
+  <body>
+    <span class="pseudo-pseudo">→ </span>
+  This paragraph has little arrows!
+  <span class="pseudo-pseudo"> ←</span>
+  </body>
+</html>
+```
+
+There is no significant difference in terms of performance between these two examples. `::before` and :`:after` are really just **secret spans, nothing more. It's syntactic sugar**.
