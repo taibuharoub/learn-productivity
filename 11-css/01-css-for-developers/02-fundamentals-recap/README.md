@@ -1,6 +1,6 @@
 # Fundamentals Recap
 
-## Anatomy of a Style Rule
+## 1. Anatomy of a Style Rule
 
 ```css
 .error-text {
@@ -8,7 +8,7 @@
 }
 ```
 
-## Media Queries
+## 2. Media Queries
 
 In order to accommodate screens of different shapes and sizes, `CSS` features `media queries`, which allow us to apply different `CSS` in different scenarios
 
@@ -65,3 +65,26 @@ Not all CSS properties have corresponding media features. For example, this snip
 Tip:
 
 - An `iframe` is an embedded HTML document within the main HTML document. It's a page within a page. When you resize the partition between code and preview, you're resizing the embedded document. The media query runs in the context of that inner page.
+
+## 3. Selectors
+
+`CSS` comes with an incredibly rich set of `selectors`, and those `selectors` can be mixed and matched in interesting ways.
+
+The most straightforward `selectors` target a specific tag or class
+
+```css
+/* Turn all links red! */
+a {
+  color: red;
+}
+/*
+  Remove the underline from all elements that
+  have been given a class of `navigation-link`
+*/
+.navigation-link {
+  text-decoration: none;
+}
+```
+
+Tip:
+-Within the modern JS ecosystem, however, we often rely on tooling to generate these selectors for us (we'll cover this in more depth in Module 3). For this reason, we won't focus too much on them in this course.
