@@ -286,3 +286,169 @@ A common question I see from developers is "which unit should I use when?". Here
 I reserve `em` for the rare cases when I want one property to scale directly with font size.
 
 There are many other units as well. Some of them will be introduced later in the course. Others, like `in`, are only useful in very specific niche cases (eg. print media), so we won't be covering them.
+
+## 9. Typography
+
+When web designers are learning how to design for the web, they're taught that text is the most important aspect. Remove the text from the page, and it becomes totally unusable. The same might not be true for images or colors or styles.
+
+CSS gives us many levers we can pull to tweak the text on our page, and we'll go deep into them later on. For now, let's cover the fundamentals of styling text.
+
+### 1. Font families
+
+We can change which font is used with the font-family property eg `font-family: Arial;`
+
+Tip:
+
+- It's called a `family` because each **font consists of multiple character sets**, for example, **“Roboto” includes 12 individual sets: 6 font weights, with 2 variants (normal and italic)**
+
+`Font families` come in different styles. The 3 most popular:
+
+- Serif
+- Sans-serif
+- Monospace
+
+A `serif` is a little adornment at the edge of strokes. `Serif` fonts a**re very common in print media, but less so on the web (they tend to create a more sophisticated, aged look)**.
+
+```css
+p {
+  /* Try changing me to 'serif' or 'monospace'! */
+  font-family: sans-serif;
+}
+```
+
+Alternatively, we can pick a custom font (AKA a web font)! In order for this to work, we'll need to instruct the browser to download the fonts we're missing.
+
+```html
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+```
+
+When using a web font, it's customary to surround it in quotation marks. This is technically only required if the font name has multiple words, but it's a good convention regardless.
+
+Here's how we'd use that Google font:
+
+```css
+font-family: 'Roboto', sans-serif;
+```
+
+We pass multiples values (a “font stack”) so that the browser can fall back to an available font for the first few seconds (or if the font fails to download). The comma lets us pass an ordered list of fonts, and the browser will use the first one available
+
+### 2.Typical text formatting
+
+Word processing software like Microsoft Word or Google Docs provide many ways to format text, and CSS has inherited some of these conventions.
+
+We'll focus on the 3 most common formatting options:
+
+- Bold
+- Italic
+- Underline
+
+#### 1. Bold text
+
+We can create bold text with the font-weight property
+
+```css
+font-weight: bold;
+```
+
+There's also a numbering system, from 1 to 1000, which lets us control the font weight more precisely
+
+```css
+/* Light, thin text*/
+font-weight: 300;
+/* Normal text */
+font-weight: 400;
+/* Heavy, bold text */
+font-weight: 700;
+```
+
+The default value for font weight is `400`, and the bold keyword maps to `700`.
+
+If we only supply a single font weight, the browser will do its best to represent bold text by thickening the characters. It generally doesn't do a great job at this.
+
+Tip:
+
+- Certain HTML tags, like `<strong>` and `<em>`, come with some default text styling. `<strong>`, for example, adds font-weight: bold.
+
+#### 2. Italic text
+
+On the web, emphasis is generally represented by slanting the text at an angle. Angled text suggests that the words are being "leaned into".
+
+We can apply italic text with this declaration
+
+```css
+font-style: italic;
+```
+
+Tip:
+
+- Similar to bold text, the browser can simulate italic text by rendering the characters at an angle. For best results, though, we should supply an italic character set.
+
+#### 3. Underlined text
+
+On the web, underlines carry a very specific meaning: they tend to be links.
+
+We shouldn't, therefore, use underlines for visual effect, or to signify that something is important. It'll confuse users.
+
+That said, not all links will need underlines. Often, navigation links rely on other cues to let the user know that they're clickable.
+
+We can toggle an element's underline with the text-decoration property:
+
+```css
+/* remove underlines from anchor tags: */
+a {
+  text-decoration: none;
+}
+```
+
+### 3. Alignment
+
+Another word-processing concern: how do we tweak text alignment?
+
+We can shift characters horizontally using the `text-align` property
+
+Tip:
+
+- `text-align` is also capable of aligning other elements, like images. In general, though, we'll use other tools for those kinds of jobs. We should reserve `text-align` for text.
+
+### 4. Text transforms
+
+We can tweak the formatting of our text using the text-transform property:
+
+```css
+/* RENDER WITH ALL CAPS */
+text-transform: uppercase;
+/* Capitalize The First Letter Of Every Word */
+text-transform: capitalize;
+```
+
+### 5. Spacing
+
+We can tweak the spacing of our characters in two ways.
+
+1. We can tweak the horizontal gap between characters using the `letter-spacing` property.
+2. We can tweak the vertical distance between lines using the `line-height` property.
+
+`line-height` is a bit of an odd duck because it takes a unitless value.
+
+This works as a ratio: `line-height: 2` means that the lines should be twice as tall as a different element with `line-height: 1`.
+
+Originally, the default value for this property was 1, but it's ticked up over the years: in Chrome, the new default value is 1.15. In Firefox, it's 1.2.
+
+Note:
+
+Line height and accessibility
+
+In order to make our apps and websites as accessible as possible, we want to choose a pretty generous value for line-height. This will help those experiencing low vision conditions, as well as those with cognitive difficulties like dyslexia.
+
+The minimum recommended value is 1.5
+
+It is technically valid to pass other sorts of units to line-height, like this:
+
+```cs
+p {
+  line-height: 20px;
+}
+```
+
+We generally shouldn't do this though. If the user cranks up their default font size, we want the line heights to scale proportionally!
