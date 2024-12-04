@@ -221,6 +221,68 @@ Many students have asked about this funky syntax; why is there a `slash` in the 
 
 The `/` character is becoming a more common pattern in modern CSS. **It isn't about division, it's about separation**. The `slash` **allows us to create groups of values**. The first group is about the color. The second group is about its opacity.
 
-### 2. Background colors
+### 3. Background colors
 
 The color property only affects the color of the text. If we want to set a color to the element's background, we can use the background-color property.
+
+## 8. Units
+
+### 1. Pixels
+
+The most popular unit for anything size-related is the pixel. Pixels are nice because they correspond more-or-less with what you see on the screen*. It's a unit that many developers get comfortable with. When it comes to most things, we'll use pixels in this course. The big exception is typography.
+
+### 2. Ems
+
+The `em` unit is an interesting fellow. It's a **relative unit, equal to the font size of the current element**.
+
+If a heading has a font-size of 24px, and we give it a bottom padding of 2em, we can expect that the element will have 48px of cushion underneath it (2 × 24px).
+
+Qn. How often should you use ems?
+
+I don't often reach for them. It can be very surprising when a tweak to font-size affects the spacing of descendant elements.
+
+This is especially true when it comes to modern component architectures. Using `em` means that a component's UI will change depending on the font size of the container it's placed within. This can be useful, but more often than not, it's a nuisance.
+
+### 3. Rems
+
+The `rem` unit is quite a lot like the `em` unit, with one crucial difference: it's **always relative to the root element, the `<html>` tag**.
+
+All of the `rems` across your app will be taking their cues from that root HTML tag. By default, the HTML tag has a font size of `16px`, so `1rem` will be equal to `16px`.
+
+From our example `./07-units/02-rem.html`
+
+Notice how all the text scales accordingly, when you change the root font size? That's why people like the rem unit. No matter where an element is in the DOM tree, the rem is consistent.
+
+It behaves consistently and predictably, like pixels, but it respects user preferences when it comes to increasing/decreasing default font sizes.
+
+Please note, **You shouldn't actually set a px font size on the html tag**. This will override a user's chosen default font size. The only reason we're doing it here is to demonstrate how the rem unit works, and to simulate a user changing their default font size.
+
+If you really want to change the baseline font size for rem units, you can do that using ems or rems example
+
+```css
+html {
+  /* 20% bigger `rem` values, app-wide! */
+  font-size: 1.2em;
+}
+```
+
+Fun little fact:
+
+- when selecting the html tag, em and rem units work exactly the same way! Normally, em values can be influenced by their parent elements, but html is the top-level root element on the page. It's also the element rem units are relative to
+
+### 4. Percentages
+
+The `percentage` unit is often used with `width/height`, as a **way to consume a portion of the available space**
+
+### The bottom line
+
+A common question I see from developers is "which unit should I use when?". Here's how I think about it:
+
+- For `typography`, I generally use `rem`, because it has important accessibility benefits.
+- When it comes to properties that relate to the `box model` — `padding`, `border`, `margin` — I usually use pixels. It's more intuitive than rem, and there isn't a clear accessibility win.
+- For `width/height`, it'll **depend on whether I want the element to be a fixed size, or a relative size**. I might want one div to always be 250px wide, while another one should be 50% of the available space.
+- For `color`, as we saw in the last lesson, I prefer `hsl`.
+
+I reserve `em` for the rare cases when I want one property to scale directly with font size.
+
+There are many other units as well. Some of them will be introduced later in the course. Others, like `in`, are only useful in very specific niche cases (eg. print media), so we won't be covering them.
