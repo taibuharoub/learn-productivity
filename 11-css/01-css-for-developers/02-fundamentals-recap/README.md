@@ -452,3 +452,7 @@ p {
 ```
 
 We generally shouldn't do this though. If the user cranks up their default font size, we want the line heights to scale proportionally!
+
+## 10. Debugging in the Browser
+
+You can pop open the devtools by right-clicking and selecting “Inspect element”, or by using the keyboard shortcut
