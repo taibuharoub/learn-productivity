@@ -167,3 +167,60 @@ Tip:
 Note:
 
 - If you have just have a `space` between the two things, then it will target any descendant anywhere down the tree, when you add the greater than symbol/(`>`) this will only look for direct children
+
+## 7. Color
+
+We can adjust the text color of a specified element using the color property
+
+```css
+strong {
+  color: red;
+}
+```
+
+### 1. Color formats
+
+CSS includes many different ways to represent color. A lot of developers use hex codes (#FF0000), but I believe there are better options
+
+You can use `HSL` colors anywhere you'd normally put a `hex code`, for example
+
+```css
+.colorful-thing {
+  color: hsl(200deg 100% 50%);
+  border-bottom: 3px solid hsl(100deg 75% 50%);
+}
+```
+
+The first number has the `deg` suffix since it's in degrees (from 0° to 360°), and the next two numbers are percentages (from 0% to 100%).
+
+In CSS quite a few different ways to represent color, below are the four most common:
+
+1. Hex Codes e.g `#FF0000`
+   1. This is probably the most used color formats
+   2. Hex codes are a way to represent RGB color, they go from 0 to and A to F so 16 which would be 16x16=256 e.g `#FF0000`
+2. Keywords e.g. `red`, `green`, etc
+   1. These have one very practical purpose which is for educational content like tutorials. The problem is that in a real application you gonna need a color shade/theme, you gonna need multiple shades of a color and there is really no way to trick/change that with color Keywords
+   2. It's useful in educational content where you like need a placeholder color
+3. RGB e.g `rgb(255, 0, 0)
+   1. It really kind of the same color format as `Hex codes`, it's just the same information just represented in a `decimal` system instead of a `hex-decimal` system
+4. HSL e.g `hsl(0deg, 100%, 50%)`
+   1. By the far my favorite and the one i recommend that you use
+   2. The huge is the actual pigment in the color, what color is being used is it purple, red or yellow represented by `264deg`. But this does not tell what the actual color should be we need two more pieces of information
+   3. The first additional value is the saturation, this is how grayed out or vibrant the color is. when we have zero/0 saturation the hue does not matter
+   4. The second additional value is the lightness value, so the up down axis(vertical axis), we can our color to be lighter or darker, when we are kind of in the middle of the scale we are not making it brighter or darker, so right in the middle is like the purest representation of the color and as we go up and up we hit a point where we are pure white, and similarly here at the top the saturation does not matter because white by definition does not have any pigment either
+
+### 2. Transparency
+
+Certain color formats allow us to supply an additional value for the `alpha` channel.
+
+This is a measure of `opacity`. At `1` (default), the color `is fully opaque and solid`. At `0`, the color `is invisible`. We can specify decimal values to create a semi-transparent color.
+
+Qn. What's the deal with the slash?
+
+Many students have asked about this funky syntax; why is there a `slash` in the `hsl` function??
+
+The `/` character is becoming a more common pattern in modern CSS. **It isn't about division, it's about separation**. The `slash` **allows us to create groups of values**. The first group is about the color. The second group is about its opacity.
+
+### 2. Background colors
+
+The color property only affects the color of the text. If we want to set a color to the element's background, we can use the background-color property.
