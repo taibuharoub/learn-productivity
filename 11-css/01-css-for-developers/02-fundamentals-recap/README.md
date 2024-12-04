@@ -147,3 +147,23 @@ We could rewrite the example see `./03-pseudo-elements/01-before-and-after.html`
 ```
 
 There is no significant difference in terms of performance between these two examples. `::before` and :`:after` are really just **secret spans, nothing more. It's syntactic sugar**.
+
+## 6. Combinators
+
+When you think about it, the humble `<a>` tag has a lot of different hats to wear. The same element needs to handle navigation links in a header, as well as inline links in an article.
+
+What if we wanted to only style navigation links? Well, we could do that using a combinator, see example `./04-combinators/index.html`
+
+By putting a space between `nav` and `a`, we're combining two selectors in a very specific way: **we're saying that the styles should only apply to a tags that are nested within nav tags**. The first two links in the snippet qualify, but the last one doesn't.
+
+The term `combinator` refers to a **character that combines multiple selectors**. In this case, the `space character` combines `nav` and `a` to create a descendant selector. The `descendant selector` will apply to all descendants, no matter how deeply nested they are
+
+In CSS, we can differentiate between children and descendants. Think of a family tree: a child is only one level down from the parent. A descendant might be 1 level down (child), 2 levels down (grandchild), 3 levels down
+
+Tip:
+
+- The greater than symbol (`>`) will target only children that are direct descendants (it has to be a direct child)
+
+Note:
+
+- If you have just have a `space` between the two things, then it will target any descendant anywhere down the tree, when you add the greater than symbol/(`>`) this will only look for direct children
