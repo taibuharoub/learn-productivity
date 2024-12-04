@@ -49,3 +49,31 @@ a {
 The trouble is that even though `color` is an inheritable property, it's being overwritten by the default style, `color: -webkit-link`?.
 
 We can fix this by **explicitly telling anchor tags to inherit their containing text color**
+
+## The Cascade
+
+See the cascade algorithm example `./02-cascade-algorithm/index.html`. When the browser needs to display our introduction paragraph on the screen, it first needs to figure out which declarations apply to it. And before it can do that, it needs to collect a set of matching rules. Once it has a list of applicable rules, it works out any conflicts. I imagine this as a sort of deathmatch: if multiple selectors each apply the same property, it pits them against each other. Two fighters enter, but only one emerges.
+
+That's the main idea. The browser will take a set of applicable style rules, and whittle it down to a list of specific declarations that are applicable.
+
+Qn. How does it determine which rules win each battle? 
+
+It depends on the `specificity` of the selector.
+
+The `CSS` language includes many different `selectors`, and **each selector has a relative power**. For example, `classes` are "more specific" than `tags`, so if there is a conflict between a `class` and a `tag`, the `class` wins. `IDs`, however, are more specific than `classes`.
+
+### 1. Similarities with JS merging
+
+The order that they're merged in is determined by `specificity`; `class` styles are more specific than `tag` styles, so they're merged in later. This way, they overwrite any conflicting styles. All non-conflicting styles are kept.
+
+Tip:
+
+- But if you work with a component-based framework like `React`, **you shouldn't really need to know that much about the cascade.**
+
+Note:
+
+- In this course will spend much less time on the `cascade` than most other resources. Instead, we'll learn **how to effectively use modern tooling and methodologies to solve problems for us**.
+
+Resource:
+
+[deeper into the cascade](https://wattenberger.com/blog/css-cascade)
