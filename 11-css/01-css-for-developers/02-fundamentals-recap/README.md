@@ -88,3 +88,24 @@ a {
 
 Tip:
 -Within the modern JS ecosystem, however, we often rely on tooling to generate these selectors for us (we'll cover this in more depth in Module 3). For this reason, we won't focus too much on them in this course.
+
+## 4. Pseudo-classes
+
+`Pseudo-classes` let us **apply a chunk of CSS based on an element's current state**. Let's say we have a button, and we want to change its text color when we hover over it, We can do this with the `:hover` pseudo-class.
+
+This is similar to onMouseEnter / onMouseLeave events in JavaScript, but with built-in state management. If we were to do this in JS, we'd need to register event listeners, but we'd also need to manage the state somehow, to know if the element is currently being hovered.
+
+### 1. focus
+
+The `:focus` pseudo-class allows us to apply styles exclusively when an interactive element has focus
+
+Qn. Why do focus styles matter?
+
+Qn. Why is it helpful to know which element is focused?
+
+Focus styles are primarily useful for folks who don't use a "pointer-style" input device (like a mouse, a trackpad, or a finger on a touchscreen). The focus styles show you where you are on the page, which element is selected.
+
+### 2. checked
+
+The `:checked` pseudo-class only applies to checkboxes and radio buttons that are "filled in". You can apply additional styles to indicate that the input is `activated:`
+
