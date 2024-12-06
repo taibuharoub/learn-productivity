@@ -50,7 +50,7 @@ The trouble is that even though `color` is an inheritable property, it's being o
 
 We can fix this by **explicitly telling anchor tags to inherit their containing text color**
 
-## The Cascade
+## 2. The Cascade
 
 See the cascade algorithm example `./02-cascade-algorithm/index.html`. When the browser needs to display our introduction paragraph on the screen, it first needs to figure out which declarations apply to it. And before it can do that, it needs to collect a set of matching rules. Once it has a list of applicable rules, it works out any conflicts. I imagine this as a sort of deathmatch: if multiple selectors each apply the same property, it pits them against each other. Two fighters enter, but only one emerges.
 
@@ -77,3 +77,28 @@ Note:
 Resource:
 
 [deeper into the cascade](https://wattenberger.com/blog/css-cascade)
+
+## 3. Directions
+
+The web was **built for displaying inter-linked documents**. A lot of `CSS` mechanics and terminology are inherited from the print world.
+
+`CSS` builds its sense of direction based on this system. **It has a block direction (vertical), and an inline direction (horizontal)**.
+
+Here's an easy way to remember the directions, for horizontal languages:
+
+- `Block direction` is like lego blocks: they stack together one on top of the other.
+- `Inline direction` is like people standing in-line; they stand side by side, not one on top of the other
+
+Note:
+
+In this course, we're going to focus on horizontally-written languages. Vertically written languages on the web are rare; even Han-based languages that are traditionally written vertically (like Chinese, Japanese, and Korean) are often written horizontally on the web.
+
+We'll also mainly focus on left-to-right languages like English. We'll pick up a few tidbits about right-to-left languages like Arabic, but for the most part, it's beyond the scope of this course.
+
+Resource:
+
+[writing modes](https://24ways.org/2016/css-writing-modes/)
+
+### 1. Logical properties
+
+Earlier, we learned about "built-in" styles — these are the rules that each browser comes with out-of-the-box, defined in the user-agent stylesheet.
