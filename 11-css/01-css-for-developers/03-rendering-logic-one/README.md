@@ -102,3 +102,7 @@ Resource:
 ### 1. Logical properties
 
 Earlier, we learned about "built-in" styles — these are the rules that each browser comes with out-of-the-box, defined in the user-agent stylesheet.
+
+Note:
+
+- For now, the important takeaway is that like a real-world document, content is structured along a block axis and an inline axis.
