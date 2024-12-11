@@ -319,3 +319,70 @@ A couple more quick tidbits about outlines:
 
 - `Outlines` will follow the curve set with `border-radius` in all browsers except Safari. This is a recent change; before September 2021, most browsers kept outlines straight and boxy.
 - `Outlines` have a special `outline-offset` property. It allows you to add a bit of a gap between the element and its outline
+
+## 7. Margin
+
+`Margin` increases the space around an element, giving it some breathing room. As we saw earlier, `margin` is "personal space".
+
+In some ways, `margin` is the most amorphous and mysterious. It can do wacky things, like pull an element outside a parent, or center itself within its container.
+
+The syntax for margin looks an awful lot like padding:
+
+```css
+.spaced-box {
+  margin: 20px;
+}
+.asymmetrically-spaced-box {
+  margin: 20px 10px;
+}
+.individually-specified-box {
+  margin-top: 10px;
+  margin-left: 20px;
+  margin-right: 30px;
+  margin-bottom: 40px;
+}
+.logical-box {
+  margin-block-start: 20px;
+  margin-block-end: 40px;
+  margin-inline-start: 60px;
+  margin-inline-end: 80px;
+}
+```
+
+### 1. Negative margin
+
+With `padding` and `border`, only positive numbers (including 0) are supported. With `margin`, however, we can drop into the negatives. A negative `margin` can pull an element outside its parent
+
+Tip:
+
+- Negative margins can also pull an element's sibling closer:
+
+It's easy to fall into the trap of thinking that `margin` is exclusively about changing the selected element's position. Really, though, it's about changing the gap between elements. `Negative margin` shrinks the gap below an element, causing the next element to scoot up closer. Finally, `negative margin` can affect the position of all siblings.
+
+When we use margin to tweak an element's position, we might also be tweaking every subsequent element as well. This is different from other methods of shifting an element's position, like using transform: translate (which we'll cover later on).
+
+### 2. Auto margins
+
+Margins have one other trick up their sleeve: they can be used to center a child in a container.
+
+The auto value seeks to fill the maximum available space. It works the same way for the width property, as we'll discover shortly.
+
+When we set both margin-left and margin-right to auto, we're telling them each to take up as much space as possible. They're evenly-matched, though, so neither side wins; they always end in a draw.
+
+If you take the free space around an element and distribute it evenly on both sides, you wind up centering that element. This is a happy byproduct of this mechanism!
+
+Two caveats:
+
+- This only works for `horizontal margin`. Setting `top/bottom` margin to `auto` is equivalent to setting it to 0px*.
+- This only works on elements with an explicit `width`. Block elements will naturally grow to fill the available horizontal space, **so we need to give our element a `width` in order to center it**.
+
+Note:
+
+- For margin auto we need a width on the element, we trying to center
+- And also margin auto works for horizontal margin, setting auto for top and bottom is like setting it to 0px
+
+Exercise on Stretched content, solution
+
+- the photo or any child we choose should be able to extend all the way to the edge of the card while the other children like the text are still constrained by the padding
+- One way to do this is just to remove the padding from the card and to add padding to the paragraph(the text)
+- The other way is to use a wrapping element, this is what we will use, and the idea is that the container is going to do the structuring and our image is just going to fill that container
