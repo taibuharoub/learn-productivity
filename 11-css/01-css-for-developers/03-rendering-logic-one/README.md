@@ -491,3 +491,65 @@ But from the paragraph's perspective, it's an inline element. It lays it out as 
 Note:
 
 - Inline-block doesn't line-wrap
+
+## 9. Width Algorithms
+
+In the previous lesson, we learned how block-level elements like h1 and p will expand to fill the available space.
+
+It's easy to assume that this means that they have a default width of 100%, but that wouldn't quite be right.
+
+- `Block` elements have a default `width` value of `auto`, not `100%`. `width: auto` works very similar to `margin: auto`; it's a hungry value that will grow as much as it's able to, but no more
+- It's a subtle but important distinction: by default, `block` elements h**ave dynamic sizing, They're context-aware**.
+
+### 1. Keyword values
+
+Broadly speaking, there are two kinds of values we can specify for width:
+
+1. Measurements (100%, 200px, 5rem)
+2. Keywords (auto, fit-content)
+
+Measurement-based values are either completely explicit (eg. 200px), or relative to the parent's available space (eg. 50%). Keywords, on the other hand, let us specify different sorts of behaviours depending on the context.
+
+We've already seen how auto will let our element greedily consume the available space while respecting any constraints.
+
+#### 1. min-content
+
+When we set `width: min-content`, we're specifying that we want our content to become as small as it can, based on the child contents. This is a totally different perspective: we aren't sizing based on the space made available by the parent, we're sizing based on the element's children!
+
+This value is known as an intrinsic value, while measurements and the `auto` keyword are extrinsic. The distinction is based on whether we're focusing on the element itself, or the space made available by the element's parent.
+
+#### 2. max-content
+
+This value is similar in principle, but it takes an opposite strategy: it never adds any line-breaks. The element's width will be the smallest value that contains the content, without breaking it up:
+
+As you can see, an element with width: `max-content` pays no attention to the constraints set by the parent. It will size the element based purely on the length of its unbroken children.
+
+Why would this be useful? Well, it produces a nice effect when the content is short enough to fit within the parent
+
+Unlike with `auto`, `max-content` doesn't fill the available space. If we want to add a background color only around the letters, this would be a neat way to do it!
+
+#### 3. fit-content
+
+If these keywords were bowls of porridge, `fit-content` would be the one that Goldilocks declares "just right".
+
+Here's how it works: like m`in-content` and `max-content`, the width is based on the size of the children. If that width can fit within the parent container, it behaves just like `max-content`, not adding any line-breaks.
+
+If the content is too wide to fit in the parent, however, it adds line-breaks as-needed to ensure it never exceeds the available space. It behaves just like `width: auto`.
+
+### 2. Min and max widths
+
+We can add constraints to an element's size using `min-width` and `max-width`.
+
+Tip:
+
+- The particularly exciting thing about `min-width` and `max-width` is that they let us mix units. We can specify constraints in pixels, but set a percentage width.
+
+### 3. A thought experiment
+
+`fit-content` is a really cool new value, but does it offer truly unique functionality? Can it be replicated using other less-shiny CSS properties?
+
+display: table causes elements to render using Table layout. This is the layout mode used by the <table> HTML tag. It's an alternative algorithm to flow layout or positioned layout.
+
+By default, tables will shrink to hold their contents, but are still block-level elements. This is exactly what we want in this case, though it is a bit of a hack; a table element expects to have table rows as children, not text.
+
+In the old days, table layouts were used for just about everything. Nowadays, Flexbox and Grid are better solutions in most situations*
