@@ -386,3 +386,108 @@ Exercise on Stretched content, solution
 - the photo or any child we choose should be able to extend all the way to the edge of the card while the other children like the text are still constrained by the padding
 - One way to do this is just to remove the padding from the card and to add padding to the paragraph(the text)
 - The other way is to use a wrapping element, this is what we will use, and the idea is that the container is going to do the structuring and our image is just going to fill that container
+
+## 8. Flow Layout
+
+When it comes to `layout`, `CSS` is more like a collection of mini-languages than a single cohesive language. Every HTML element will have its `layout` calculated **by a layout algorithm. These are known as “layout modes”, and there are 7 distinct ones**.
+
+We'll cover several `layout modes` in this course, including Positioned layout, **“Flexible Box” layout (AKA Flexbox), and Grid layout (AKA CSS Grid)**. For now, though, let's focus on `Flow layout`.
+
+`Flow layout` is the default layout mode. All the examples we've seen so far are rendered in `Flow layout`. A plain HTML document, with no CSS applied, uses `Flow layout` exclusively.
+
+In `Flow layout`, every element will use a display value of either `inline`, `block`, or `inline-block`. This value governs how the `Flow layout` algorithm will place the element. The default value depends on the tag; `div` elements are block by default, while `spans` are inline.
+
+Tip:
+
+- `Inline elements` are generally meant to highlight a selection of text. You might use a `<strong>` tag to add weight to a specific word in a sentence, or use an `<a>` tag to add a link.
+
+Most elements, however, are `block` elements. They can be used to create a block of text, or to arrange boxes into a layout. The `<div>` element, along with its semantic HTML5 alternatives (eg. `section`, `nav`, `header`, `footer`, `article`, etc), are block elements. So are `paragraphs`, `headings`, `form tags`, `blockquotes`, and so on.
+
+It's no coincidence that `block` and `inline` align with the directions we were speaking about earlier. In flow layout, `block` elements stack in the `block` direction, and `inline` elements stack in the `inline` direction.
+
+It's more than just direction, though. There are a set of rules that these display types follow. Let's look at them in turn:
+
+### 1. Inline elements don't want to make a fuss
+
+If you've ever tried to adjust the positioning or size of an `inline` element, you've likely been confounded by the fact that a bunch of CSS properties just don't work.
+
+For example, this snippet will have no effect:
+
+```css
+strong {
+  height: 2em;
+}
+```
+
+You can picture `inline` elements as go-with-the-flow-type folks. They don't want to inconvenience anyone by pushing any boundaries. They're like polite dinner-party guests who sit exactly where they're assigned.
+
+You can shift things in the `inline` direction with `margin-left` and `margin-right`, but you can't change its `width` or `height`. And in terms of the block direction, an `inline` element is where it is, and that's the end of the story. `Inline` elements can be given vertical padding, but the results can be surprising, and we need to exercise caution.
+
+Exceptions
+
+There are two exceptions to this rule. The first is `replaced elements`.
+
+A `replaced element` is one that embeds a "foreign" object. This includes:
+
+- `<img />`
+- `<video />`
+- `<canvas />`
+
+These elements are all technically `inline`, but they're special: they can affect `block` layout. You can give them explicit dimensions, or add some margin-top.
+
+How do we reconcile this? I have a trick. I like to pretend that it's a foreign object within an `inline` wrapper. When you pass it a `width` or `height`, you're applying those properties to the foreign object. The `inline` wrapper still goes with the flow.
+
+The **second exception** is the `<button>` tag. They aren't quite replaced elements, but they function the same way. They can be given a width/height.
+
+Note:
+
+- You can't change the width and height of `inline` elements, You can shift things in the inline direction with `margin-left` and `margin-right`. There are two exceptions to this rule. The first is `replaced elements` e.g `<img />`, `<video />` and `<canvas />`, The second exception is the `<button>` tag. These elements are all technically inline, but they're special: they can affect block layout. You can give them explicit dimensions
+
+### 2. Block elements don't share
+
+When you place a `block` level element on the page, its content box greedily expands to fill the entire available horizontal space.
+
+A heading might only need 150px to contain its letters, but if you put it in an 800px container, it will consume 800px of width. What if we force it to shrink down to the minimum size required for the letters? We can do this with the special width keyword `fit-content*`
+
+### 3. Inline elements have “magic space”
+
+In the box model lesson, we learned about the different ways we can increase space around an element: we can change its content size, we can add padding, we can thicken the border, or increase the margin.
+
+The reason for this extra “magic space” is that the browser treats inline elements as if they're typography. It makes sense that with text, you'd want a bit of extra space, so that the lines in a paragraph aren't crammed in too tightly.
+
+There are two ways we can fix this problem:
+
+- Set images to `display: block` — if you're noticing this problem, there's a good chance your images aren't interspersed with text, so setting them to display as blocks makes sense.
+- Set the `line-height` on the wrapping div to `0`: This space is proportional to the height of each line, so if we reduce the line height to 0, this “magic space” goes away. Because our container doesn't contain any text, this property has no other effect.
+
+Space between inline elements
+
+There's another unrelated way that inline elements have a bit of extra spacing. This space is caused by the whitespace between elements. If we squish our HTML so that there are no newlines or whitespace characters between images, this problem goes away
+
+This happens because `HTML` is space-sensitive, at least to an extent. The browser can't tell the difference between `whitespace` added to separate words in a paragraph, and `whitespace` added to indent our `HTML` and keep it readable.
+
+### 4. Inline elements can line-wrap
+
+Inline elements have one pretty big trick up their sleeves; they can line-wrap. Unlike block elements, an inline element can produce shapes other than boxes. This helps explain why certain CSS properties aren't available for inline elements.
+
+Tweaking this default behaviour
+
+Using horizontal padding on inline elements can feel awkward, since the spacing is only applied at the tips
+
+### 5. The deal with inline-block
+
+There is one more primitive display value we haven't talked about, and it's a sort of Frankenstein: `inline-block`.
+
+Essentially, `inline-block` allows you to drop a `block` element into an `inline` context. It's a block in **inline's** clothing.
+
+Another way to phrase this: it's an element that internally acts like a `block` element, but externally acts like an `inline` element. The parent container will treat it as an `inline` element, since it's external. But the element itself can be styled like a `block`.
+
+In this example `./08-flow-layout/01-inline-block.html`, we've set our `<strong>` to be inline-block, and this means that the full universe of CSS is open to us. It means we're able to give it a `width`, as well as give it an on-hover scale effect (discussed further in Module 8). Try removing the display declaration to see the difference.
+
+We've effectively turned our strong element into a block element, as far as its own CSS declarations are concerned. Everything between the four corners of the element is block in nature.
+
+But from the paragraph's perspective, it's an inline element. It lays it out as an inline element, in the inline direction beside the text.
+
+Note:
+
+- Inline-block doesn't line-wrap
