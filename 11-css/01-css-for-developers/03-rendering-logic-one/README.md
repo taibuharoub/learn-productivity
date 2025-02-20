@@ -701,3 +701,22 @@ If there are more than 2 margins involved, the algorithm looks like this:
 ```
 
 In above example, our most significant positive margin is 30px. Our most significant negative margin is -20px. Therefore, we wind up with 10px of realized margin, since we add the positive and negative values together.
+
+## 12. Using Margin Effectively
+
+Now that you've seen how hairy margin collapse can get, you may wonder: why use margin at all, if it has so many footguns??
+
+In fact, a growing trend amongst JavaScript developers is to forego margin altogether, and use a combination of padding and layout components instead. Max Stoiber, co-creator of styled-components, has written about [how margin is harmful](https://mxstbr.com/thoughts/margin).
+
+> Margin is like putting glue on something before you’ve decided what to stick it to, or if it should be stuck to anything.
+
+Tip:
+
+- I try and avoid putting margin on something at the component boundary.
+
+The basic idea is that components aren't allowed to have "external margin", margin that extends past the edge of the border box. Instead, components are grouped using layout components
+
+## Workshop
+
+> Build a Landing Page
+
