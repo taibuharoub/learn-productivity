@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .large-screens {
+        display: none;
+      }
+
+      @media (width: 300px) {
+        /* will show only on screen at 300px */
+        .large-screens {
+          display: block;
+        }
+        .small-screens {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="large-screens">I only show up on large screens.</div>
+    <div class="small-screens">
+      Meanwhile, you'll only see me on small ones.
+    </div>
+  </body>
+</html>
