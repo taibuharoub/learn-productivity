@@ -548,8 +548,30 @@ Tip:
 
 `fit-content` is a really cool new value, but does it offer truly unique functionality? Can it be replicated using other less-shiny CSS properties?
 
-display: table causes elements to render using Table layout. This is the layout mode used by the <table> HTML tag. It's an alternative algorithm to flow layout or positioned layout.
+display: table causes elements to render using Table layout. This is the layout mode used by the `<table>` HTML tag. It's an alternative algorithm to flow layout or positioned layout.
 
 By default, tables will shrink to hold their contents, but are still block-level elements. This is exactly what we want in this case, though it is a bit of a hack; a table element expects to have table rows as children, not text.
 
 In the old days, table layouts were used for just about everything. Nowadays, Flexbox and Grid are better solutions in most situations*
+
+### 4. Figures and captions
+
+The `<figure>` HTML element is fairly niche, but super useful. It allows us to display any sort of “non-typical” content: images, videos, code snippets, widgets, etc. It also lets us caption that content with `<figcaption>`
+
+`<figure>` elements are block-level elements, which means they fill the available horizontal space. But what if we wanted them to shrink to wrap around the image inside?
+
+Different figures will need to be different sizes, based on the widths of the images inside. Therefore, your solution shouldn't "hardcode" any pixel values.
+
+## 10. Height Algorithms
+
+> We've seen how widths are calculated in Flow layout, but how about height?
+
+In some ways, it works the same way. Setting an element to have a `height` of `50%` will force that item to take up half of the parent element's content area: no more, no less.
+
+In other ways, they're quite different. The default **"width"** behavior of a block-level element is to fill all the available width, whereas the default **"height"** behavior is to be as small as possible while fitting all of the element's content; it's closer to width: min-content than width: auto!
+
+Tip:
+
+- When html is given height: 100%, it takes up the height of the viewport.
+- `height` tends to look "down" the tree, to determine its size based on the natural size of its contents, while `width` tends to look "up" the tree, basing its size on the space made available by the parent.
+- You may be familiar with the vh unit, a unit designed exactly for this purpose. If you set height: 100vh, your element will inherit its height from the viewport size. Unfortunately, this unit doesn't quite work the way we'd often like, because of mobile devices. In general, I recommend using the html/body height: 100% method described above. It produces a better experience in most cases.
