@@ -575,3 +575,129 @@ Tip:
 - When html is given height: 100%, it takes up the height of the viewport.
 - `height` tends to look "down" the tree, to determine its size based on the natural size of its contents, while `width` tends to look "up" the tree, basing its size on the space made available by the parent.
 - You may be familiar with the vh unit, a unit designed exactly for this purpose. If you set height: 100vh, your element will inherit its height from the viewport size. Unfortunately, this unit doesn't quite work the way we'd often like, because of mobile devices. In general, I recommend using the html/body height: 100% method described above. It produces a better experience in most cases.
+
+## 11. Margin Collapse
+
+Earlier, we talked about how margin is akin to "personal space". Margins work in a similar fashion—adjacent margins will sometimes "collapse", and overlap.
+
+Unlike `padding` and `border`, it's possible for margins to overlap. So the idea of `Margin Collapse` is **that when you have margins that are side by side they collapse into one space**
+
+### 1. Rules of Margin Collapse
+
+#### 1. Only vertical margins collapse
+
+When `margin-collapse` was added to the CSS specification, **the language designers made a curious choice: horizontal margins (`margin-left` and `margin-right`) shouldn't collapse**.
+
+So our first rule is a bit of a misnomer; it would be more accurate to say that only block-direction margins collapse.
+
+#### 2. Margins only collapse in Flow layout
+
+The web has multiple layout modes, like `positioned layout`, `flexbox layout`, and `grid layout`.
+
+Margin collapse is unique to Flow layout. If you have children inside a display: flex parent, those children's margins will never collapse.
+
+#### 3. Only adjacent elements collapse
+
+It is somewhat common to use the `<br />` tag (a line-break) to increase space between block elements. Regrettably, this has an adverse effect on our margins, The `<br />` tag is invisible and empty, but any element between two others will block margins from collapsing. **Elements need to be adjacent in the `DOM` for their margins to collapse**.
+
+```html
+<style>
+  p {
+    margin-top: 32px;
+    margin-bottom: 32px;
+  }
+</style>
+<p>Paragraph One</p>
+<br />
+<p>Paragraph Two</p>
+```
+
+#### 4. The bigger margin wins
+
+The bigger number wins.
+
+This one feels intuitive if you think of margin as "personal space". If one person needs 6 feet of personal space, and another requires 8 feet of personal space, the two people will keep 8 feet apart.
+
+#### 5. Nesting doesn't prevent collapsing
+
+`Margin` is meant to increase the distance between siblings. It is not meant to increase the gap between a child and its parent's bounding box; that's what `padding` is for. `Margin` will always try and increase distance between siblings, even if it means transferring `margin` to the parent element!
+
+Tip:
+
+- `Margins` only collapse when they're touching. `Margins` must be touching in order for them to collapse
+
+#### 6. Margins can collapse in the same direction
+
+Surprisingly, margins can collapse even in the same direction.
+
+```html
+<style>
+  .parent {
+    margin-top: 72px;
+  }
+  .child {
+    margin-top: 24px;
+  }
+</style>
+<div class="parent">
+  <p class="child">Paragraph One</p>
+</div>
+```
+
+This is an extension of the previous rule. The child margin is getting “absorbed” into the parent margin. The two are combining, and are subject to the same rules of margin-collapse we've seen so far (eg. the biggest one wins).
+
+#### 7. More than two margins can collapse
+
+Margin collapse isn't limited to just two margins!
+
+#### 8. Negative margins
+
+A negative margin will pull an element in the opposite direction. A sibling with a negative margin-top might overlap its neighbor
+
+Qn. How do negative margins collapse?
+
+Well, it's actually quite similar to positive ones! The negative margins will share a space, and the size of that space is determined by the most significant negative margin.
+
+Qn. What about when negative and positive margins are mixed?
+
+In this case, the numbers are added together. In this example, the -25px negative margin and the 25px positive margin cancel each other out and have no effect, since -25px + 25px is 0.
+
+#### 9. Multiple positive and negative margins
+
+> The culmination of all the rules we've seen so far.
+
+What if we have multiple margins competing for the same space, and some are negative?
+
+If there are more than 2 margins involved, the algorithm looks like this:
+
+- Find the largest positive margin
+- Find the largest* negative margin
+- Add those two numbers together
+
+```html
+<header>
+  <h1>My Project</h1>
+  <style>
+      header {
+      margin-bottom: -20px;
+    }
+
+    header h1 {
+      margin-bottom: 10px;
+    }
+
+    section {
+      margin-top: -10px;
+    }
+
+    section p {
+      margin-top: 30px;
+    }
+  </style>
+</header>
+<section>
+  <p>Hello World</p>
+</section>
+```
+
+In above example, our most significant positive margin is 30px. Our most significant negative margin is -20px. Therefore, we wind up with 10px of realized margin, since we add the positive and negative values together.
